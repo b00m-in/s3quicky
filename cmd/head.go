@@ -26,15 +26,12 @@ var(
 // headCmd represents the head command
 var headCmd = &cobra.Command{
 	Use:   "head <object> <key>",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Get only the headers of a key in an object store",
+	Long: `Optionally peek at size of the metadata in the footer. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+s3quicky head -p overturemaps-us-west-2 release/2025-05-21.0/theme=buildings/type=building/part-00043-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet`,
 	Run: func(cmd *cobra.Command, args []string) {
-		//	fmt.Println("head called")
+
 		bucket := args[0]
 		key := args[1]
 		//		filename := parseFilename(key)

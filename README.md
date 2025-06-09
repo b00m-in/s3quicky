@@ -155,11 +155,31 @@ Column 7: sources.list.element.property (BYTE_ARRAY/UTF8)
 ...
 
 ```
-TODO: Now we can use columns 2-5 (`bbox`) to check whether the data contained in the parquet is in a zone of interest.
+Now we can use columns 2-5 (`bbox`) to check whether the data contained in each row group in the parquet is in a zone of interest. But we can also simply use the key-value metadata which has a combined `bbox` for all the row groups. With this we can now list only the keys in the object store which intersect with t
+
+```
+s3quicky ls --bbox -3.71,40.40,-3.69,40.44 --prefix release/2025-05-21.0/theme=buildings/type=building overturemapsus-west-2
+
+release/2025-05-21.0/theme=buildings/type=building/part-00047-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet
+release/2025-05-21.0/theme=buildings/type=building/part-00048-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet
+release/2025-05-21.0/theme=buildings/type=building/part-00051-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet
+```
+Three files intersected with our bounding box. Let's get some statistics on one of them:
+
+```
+../s3quicky show - part-00047-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet
+
+Maximum height: 356m | Endesa Termic
+Total number of buildings: 1031306
+Average height of all buildings: 4.76m
+Total number of named buildings: 23066
+Average height of named buildings: 6.81m
+```
+Reveals that the tallest building in this file is a chimney in Galicia!
 
 ## Milestones
 
-What's the average height of all the buildings in Madrid for which user-contributed height data exists?
+What's the average height of all the buildings in Madrid/Spain for which user-contributed height data exists?
 
 ## Questions
 

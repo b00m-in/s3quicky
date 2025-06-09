@@ -23,13 +23,10 @@ import (
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get <bucket> <key>",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Get/download a key or part of it from an object store",
+	Long: `Get/download a part of a key from an object store by providing a start-end range or -e=-1 for the entire key. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+s3quicky get -s=991069492 -e=991368715 overturemaps-us-west-2 release/2025-05-21.0/theme=buildings/type=building/part-00043-0df994ca-3323-4d7c-a374-68c653f78289-c000.zstd.parquet`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//fmt.Println("get called")
 		bucket := args[0]
